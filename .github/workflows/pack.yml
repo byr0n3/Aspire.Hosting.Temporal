@@ -31,5 +31,7 @@ jobs:
         run: dotnet build -c Debug --no-restore /p:Version=${VERSION}
       - name: Pack
         run: dotnet pack -c Debug --no-build --output packages /p:Version=${VERSION}
-      - name: Push packages to NuGet
+      - name: Push packages to GitHub NuGet registry
         run: dotnet nuget push "packages/*.nupkg" --source github --api-key=${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+      - name: Push packages to NuGet registry
+        run: dotnet nuget push "packages/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key=${{secrets.NUGET_TOKEN}} --skip-duplicate
