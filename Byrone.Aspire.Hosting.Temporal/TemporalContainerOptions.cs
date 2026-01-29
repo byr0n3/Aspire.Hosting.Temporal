@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Aspire.Hosting.ApplicationModel;
 
-namespace Aspire.Hosting.Temporal
+namespace Byrone.Aspire.Hosting.Temporal
 {
 	/// <summary>
 	/// A struct that configures the creation of the required Temporal resources.
@@ -16,8 +16,8 @@ namespace Aspire.Hosting.Temporal
 		/// <summary>
 		/// The image to use for the Temporal container.
 		/// </summary>
-		/// <remarks>Defaults to <c>ghcr.io/byr0n3/temporal</c></remarks>
-		public required string Image { get; init; } = "ghcr.io/byr0n3/temporal";
+		/// <remarks>Defaults to <c>byr0n3/temporal</c></remarks>
+		public required string Image { get; init; } = "byr0n3/temporal";
 
 		/// <summary>
 		/// The tag of the <see cref="Image"/> to use.

@@ -1,16 +1,16 @@
 <Solution>
 	<Folder Name="/Solution Items/">
-		<File Path=".gitignore"/>
-		<File Path="README.md"/>
+		<File Path=".gitignore" />
+		<File Path="README.md" />
 	</Folder>
 	<Folder Name="/Docker/">
-		<File Path="Dockerfile"/>
-		<File Path="create-namespace.sh"/>
-		<File Path="entrypoint.sh"/>
+		<File Path="Dockerfile" />
+		<File Path="create-namespace.sh" />
+		<File Path="entrypoint.sh" />
 	</Folder>
 	<Folder Name="/GitHub Workflows/">
-		<File Path=".github/workflows/docker.yml"/>
-		<File Path=".github/workflows/pack.yml"/>
+		<File Path=".github/workflows/docker.yml" />
+		<File Path=".github/workflows/pack.yml" />
 	</Folder>
-	<Project Path="Aspire.Hosting.Temporal/Aspire.Hosting.Temporal.csproj"/>
+	<Project Path="Byrone.Aspire.Hosting.Temporal\Byrone.Aspire.Hosting.Temporal.csproj" />
 </Solution>

@@ -1,6 +1,6 @@
 using Aspire.Hosting.ApplicationModel;
 
-namespace Aspire.Hosting.Temporal
+namespace Byrone.Aspire.Hosting.Temporal
 {
 	public sealed class TemporalContainerResource : ContainerResource, IResourceWithConnectionString
 	{

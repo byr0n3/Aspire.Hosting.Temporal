@@ -10,7 +10,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: byr0n3/temporal
+  GITHUB_IMAGE_NAME: byr0n3/temporal
+  DOCKER_IMAGE_NAME: byrone2/temporal
 
 jobs:
   publish:
@@ -47,8 +48,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            ${{ env.IMAGE_NAME }}
+            ${{ env.REGISTRY }}/${{ env.GITHUB_IMAGE_NAME }}
+            ${{ env.DOCKER_IMAGE_NAME }}
       - name: Setup Docker Build
         uses: docker/setup-buildx-action@v3
       - name: Build and push
@@ -65,6 +66,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-name: ${{ env.REGISTRY }}/${{ env.GITHUB_IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true

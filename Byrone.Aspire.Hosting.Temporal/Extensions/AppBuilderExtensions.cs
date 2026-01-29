@@ -1,5 +1,5 @@
 using Aspire.Hosting.ApplicationModel;
-using Aspire.Hosting.Temporal;
+using Byrone.Aspire.Hosting.Temporal;
 
 // ReSharper disable once CheckNamespace
 namespace Aspire.Hosting
