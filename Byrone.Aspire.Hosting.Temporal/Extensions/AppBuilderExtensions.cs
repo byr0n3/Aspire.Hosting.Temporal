@@ -1,3 +1,4 @@
+using System;
 using Aspire.Hosting.ApplicationModel;
 using Byrone.Aspire.Hosting.Temporal;
 
@@ -19,9 +20,13 @@ namespace Aspire.Hosting
 
 				// Username & password are fixed resources so they can be properly shared with the Temporal container instance.
 				var postgresUsername = builder.AddParameter($"{options.PostgresName}Username",
-															static () => "postgres");
+															static () => "postgres",
+															false,
+															true);
 				var postgresPassword = builder.AddParameter($"{options.PostgresName}Password",
-															new GenerateParameterDefault { MinLength = 22 }, secret: true);
+															new GenerateParameterDefault { MinLength = 22 },
+															true,
+															true);
 
 				// Creates a resource that starts a `postgres:16-alpine` container.
 				// The official Temporal docker-compose.yml example uses 16, which means that I will as well.
@@ -81,10 +86,11 @@ namespace Aspire.Hosting
 			/// <param name="defaultNamespace">The namespace that should be initially shown when opening the UI.</param>
 			/// <param name="temporal">The <see cref="TemporalContainerResource"/> builder that contains the Temporal connection string.</param>
 			/// <returns>The created resource builder.</returns>
-			public IResourceBuilder<TemporalUiContainerResource> AddTemporalUi(string name,
-																			   string imageTag,
-																			   string defaultNamespace,
-																			   IResourceBuilder<TemporalContainerResource> temporal) =>
+			public IResourceBuilder<TemporalUiContainerResource> AddTemporalUiContainer(string name,
+																						string imageTag,
+																						string defaultNamespace,
+																						IResourceBuilder<TemporalContainerResource>
+																							temporal) =>
 				// @todo Health check
 				builder.AddResource(new TemporalUiContainerResource(name, temporal))
 					   .WithImage("temporalio/ui", imageTag)

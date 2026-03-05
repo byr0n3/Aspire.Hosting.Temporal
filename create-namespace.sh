@@ -5,7 +5,7 @@ while ! nc -z localhost 7233; do
   sleep 0.1
 done
 
-echo 'Temporal server is available! Creating namespace…'
+echo -e "Temporal server is available! Creating namespace '${NAMESPACE}'…"
 
 # Try to get the details of the namespace.
 # If this command fails, the namespace doesn't exist and we should try and create it.
