@@ -65,7 +65,7 @@ namespace Aspire.Hosting
 									  .WithEnvironment("POSTGRES_SEEDS", postgresHost)
 									  .WithEnvironment("POSTGRES_USER", postgresUsername)
 									  .WithEnvironment("POSTGRES_PWD", postgresPassword)
-									  .WithEnvironment("NAMESPACE", options.Namespace)
+									  .WithEnvironment("NAMESPACE", string.Join(',', options.Namespace))
 									  // Temporal binds to `127.0.0.1` by default,
 									  // which can cause issues when connecting to the Temporal issue from other containers.
 									  .WithEnvironment("BIND_ON_IP", "0.0.0.0")

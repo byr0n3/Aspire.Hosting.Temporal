@@ -81,7 +81,8 @@ services:
       - POSTGRES_PWD=temporal
       - POSTGRES_SEEDS=postgres
 
-      - NAMESPACE=default
+      # Use comma-separated values to create multiple namespaces. 
+      - NAMESPACE=default,mynamespace
 
       - BIND_ON_IP=0.0.0.0
       - TEMPORAL_BROADCAST_ADDRESS=0.0.0.0

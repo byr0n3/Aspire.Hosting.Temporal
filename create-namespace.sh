@@ -5,8 +5,14 @@ while ! nc -z localhost 7233; do
   sleep 0.1
 done
 
-echo -e "Temporal server is available! Creating namespace '${NAMESPACE}'…"
+echo 'Temporal server is available! Creating namespaces.'
 
-# Try to get the details of the namespace.
-# If this command fails, the namespace doesn't exist and we should try and create it.
-temporal operator namespace describe -n $NAMESPACE || temporal operator namespace create -n $NAMESPACE
+export IFS=','
+
+for namespace in $NAMESPACE; do
+  echo -e "Creating namespace '${namespace}'…"
+
+  # Try to get the details of the namespace.
+  # If this command fails, the namespace doesn't exist and we should try and create it.
+  temporal operator namespace describe -n $namespace || temporal operator namespace create -n $namespace
+done

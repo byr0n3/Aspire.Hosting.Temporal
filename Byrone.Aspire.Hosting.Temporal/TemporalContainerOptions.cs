@@ -26,9 +26,9 @@ namespace Byrone.Aspire.Hosting.Temporal
 		public required string Tag { get; init; } = "latest";
 
 		/// <summary>
-		/// The namespace that should be created for the Temporal instance.
+		/// The namespaces that should be created for the Temporal instance.
 		/// </summary>
-		public required string Namespace { get; init; } = "default";
+		public required string[] Namespace { get; init; } = ["default"];
 
 		/// <summary>
 		/// The name of the <see cref="PostgresServerResource"/> that will store all of Temporal's data.
@@ -61,7 +61,13 @@ namespace Byrone.Aspire.Hosting.Temporal
 		}
 
 		[SetsRequiredMembers]
-		public TemporalContainerOptions(string name, string tag, string postgresName, string databaseName, string @namespace)
+		public TemporalContainerOptions(string name, string tag, string postgresName, string databaseName, string @namespace) :
+			this(name, "latest", postgresName, databaseName, [@namespace])
+		{
+		}
+
+		[SetsRequiredMembers]
+		public TemporalContainerOptions(string name, string tag, string postgresName, string databaseName, string[] @namespace)
 		{
 			this.Name = name;
 			this.Tag = tag;

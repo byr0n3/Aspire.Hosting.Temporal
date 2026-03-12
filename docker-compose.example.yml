@@ -1,0 +1,72 @@
+services:
+  temporal_postgres:
+    image: "postgres:16-alpine"
+    container_name: temporal_postgres
+    ports:
+      - "65431:5432"
+    environment:
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PASSWORD=temporal
+    networks:
+      - temporal-network
+    volumes:
+      - temporal-db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U temporal" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+
+  temporal:
+    image: byrone2/temporal:latest
+    container_name: temporal
+    depends_on:
+      temporal_postgres:
+        condition: service_healthy
+    links:
+      - temporal_postgres
+    ports:
+      - "7233:7233"
+    environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=temporal
+      - POSTGRES_SEEDS=temporal_postgres
+
+      - NAMESPACE=default,test
+
+      - BIND_ON_IP=0.0.0.0
+      - TEMPORAL_BROADCAST_ADDRESS=0.0.0.0
+    networks:
+      - temporal-network
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "7233" ]
+      interval: 5s
+      timeout: 3s
+      start_period: 30s
+      retries: 60
+
+  temporal-ui:
+    image: temporalio/ui:2.44.1
+    container_name: temporal-ui
+    depends_on:
+      temporal:
+        condition: service_healthy
+    ports:
+      - "8084:8080"
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+      - TEMPORAL_DEFAULT_NAMESPACE=default
+    networks:
+      - temporal-network
+
+networks:
+  temporal-network:
+    name: temporal-network
+
+volumes:
+  temporal-db:

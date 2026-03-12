@@ -7,3 +7,6 @@ riderModule.iml
 
 # User-specific settings
 *.DotSettings.user
+
+# Local testing stuff
+docker-compose.test.yml
