@@ -12,7 +12,5 @@ export IFS=','
 for namespace in $NAMESPACE; do
   echo -e "Creating namespace '${namespace}'…"
 
-  # Try to get the details of the namespace.
-  # If this command fails, the namespace doesn't exist and we should try and create it.
-  temporal operator namespace describe -n $namespace || temporal operator namespace create -n $namespace
+  temporal operator namespace create -n $namespace
 done
